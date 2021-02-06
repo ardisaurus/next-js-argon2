@@ -1,0 +1,17 @@
+{
+  "name": "next-js-argon2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "argon2-browser": "^1.15.3",
+    "base64-loader": "^1.0.0",
+    "next": "10.0.6",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  }
+}

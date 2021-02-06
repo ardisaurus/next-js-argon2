@@ -1,18 +1,3 @@
-# next-js-argon2
-
-Argon 2 implementation in NextJS
-
-## Dependencies
-
-- [argon2-browser](https://www.npmjs.com/package/argon2-browser)
-- [base64loader](https://www.npmjs.com/package/base64-loader)
-
-## Webpack config override
-
-1. Create `next.config.js` file.
-2. Insert this codes in `next.config.js`.
-
-```js
 module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.module.rules.push({
@@ -42,6 +27,3 @@ module.exports = {
     return config;
   },
 };
-```
-
-3. Run with `yarn dev`
