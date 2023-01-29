@@ -2,7 +2,7 @@ module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.module.rules.push({
       test: /\.wasm$/,
-      loaders: ["base64-loader"],
+      loader: "base64-loader",
       type: "javascript/auto",
     });
 
@@ -16,12 +16,14 @@ module.exports = {
       });
     });
 
-    config.node = {
-      fs: "empty",
-    };
+    if (!isServer) {
+      config.resolve.fallback.fs = false;
+    }
 
     // Perform customizations to webpack config
-    config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//));
+    config.plugins.push(
+      new webpack.IgnorePlugin({ resourceRegExp: /\/__tests__\// })
+    );
 
     // Important: return the modified config
     return config;

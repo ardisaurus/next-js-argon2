@@ -8,7 +8,9 @@ Argon 2 implementation in NextJS
 - [base64loader](https://www.npmjs.com/package/base64-loader)
 
 ## Webpack config override
+
 This webpack config override supposed to fix `Failed to parse source map: TypeError: Cannot read property 'start' of undefined argon2-browser` error.
+
 1. Create `next.config.js` file.
 2. Insert this codes in `next.config.js`.
 
@@ -17,7 +19,7 @@ module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.module.rules.push({
       test: /\.wasm$/,
-      loaders: ["base64-loader"],
+      loader: "base64-loader",
       type: "javascript/auto",
     });
 
@@ -31,12 +33,14 @@ module.exports = {
       });
     });
 
-    config.node = {
-      fs: "empty",
-    };
+    if (!isServer) {
+      config.resolve.fallback.fs = false;
+    }
 
     // Perform customizations to webpack config
-    config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//));
+    config.plugins.push(
+      new webpack.IgnorePlugin({ resourceRegExp: /\/__tests__\// })
+    );
 
     // Important: return the modified config
     return config;
